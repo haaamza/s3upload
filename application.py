@@ -56,7 +56,7 @@ def sign_s3():
 
   # Generate and return the presigned URL
   presigned_post = s3.generate_presigned_post(
-    Bucket = 'hamzaaa-test',
+    Bucket = S3_BUCKET,
     Key = file_name,
     Fields = {"acl": "public-read", "Content-Type": file_type},
     Conditions = [

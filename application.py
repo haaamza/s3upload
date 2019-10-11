@@ -45,15 +45,25 @@ def submit_form():
 def sign_s3():
   # Load necessary information into the application
   S3_BUCKET = os.environ.get('S3_BUCKET')
-  os.environ['S3_USE_SIGV4'] = 'True'
 
   # Load required data from the request
   file_name = request.args.get('file-name')
   file_type = request.args.get('file-type')
 
   # Initialise the S3 client
-  s3 = boto3.client('s3')
-
+  # [s3] use-sigv4 = True
+#   s3 = boto3.client(
+#     's3',
+#     aws_access_key_id=os.environ.get('ACCESS_KEY')ACCESS_KEY,
+#     aws_secret_access_key=SECRET_KEY,
+#     aws_session_token=SESSION_TOKEN,
+# )
+s3 = boto3.client(
+    's3',
+    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+    use-sigv4 = True
+)
   # Generate and return the presigned URL
   presigned_post = s3.generate_presigned_post(
     Bucket = S3_BUCKET,

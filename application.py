@@ -45,7 +45,6 @@ def submit_form():
 def sign_s3():
   # Load necessary information into the application
   S3_BUCKET = os.environ.get('S3_BUCKET')
-  os.environ['S3_USE_SIGV4'] = 'True'
 
   # Load required data from the request
   file_name = request.args.get('file-name')

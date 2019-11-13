@@ -111,9 +111,11 @@
       console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
       }).send(function(err, data) {
         $('#loading').hide();
+        var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
         $('#preview').attr('src',url);
         $('#avatar-url').attr('value',url);
       });
+      console.log(url);
       // uploadFile(file,url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);

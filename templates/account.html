@@ -106,7 +106,7 @@
       var elem = document.getElementById("myBar");
       var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
       var params = {Key: file.name, ContentType: file.type, Body: file};
-      var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
+      var result = bucket.getSignedUrl(‘putObject’, params).on('httpUploadProgress', function(evt) {
         var perage = parseInt((evt.loaded * 100) / evt.total);
         elem.style.width = perage + "%";
         elem.innerHTML = perage  + "%";
@@ -115,7 +115,8 @@
         $('#loading').hide();
       });
       var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
-      console.log(url);
+      console.log(result);
+      // uploadFile(file, response.data, url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       // xhr.onreadystatechange = () => {

@@ -19,7 +19,10 @@ app = Flask(__name__)
 @app.route("/account/")
 def account():
   # Show the account-edit HTML page:
-  return render_template('account.html')
+  S3_BUCKET = os.environ.get('S3_BUCKET')
+  accessID = os.environ.get('AWS_SECRET_ACCESS_KEY')
+  accessKey = os.environ.get('AWS_ACCESS_KEY_ID')
+  return render_template('account.html', bucket=S3_BUCKET, accessID=accessId, accessKey=accesskey)
 
 
 # Listen for POST requests to yourdomain.com/submit_form/

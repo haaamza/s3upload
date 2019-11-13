@@ -103,8 +103,6 @@
       console.log("hi there");
       var elem = document.getElementById("myBar");
       var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
-      var seconds = (Date.now()-(Date.now()/1000/60/60/24|0)*24*60*60*1000)/1000
-      filename = file.name + seconds;
       var params = {Key: file.name, ContentType: file.type, Body: file};
       var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
         var perage = parseInt((evt.loaded * 100) / evt.total);
@@ -113,7 +111,7 @@
       console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
       }).send(function(err, data) {
         $('#loading').hide();
-        var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +filename;
+        var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
         $('#preview').attr('src',url);
         $('#avatar-url').attr('value',url);
       });

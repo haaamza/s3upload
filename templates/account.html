@@ -74,9 +74,9 @@
       xhr.open('POST', url);
       xhr.setRequestHeader('x-amz-acl', 'public-read');
 
-      const postData = new FormData();
-      postData.append(key, file.name);
-      postData.append('file', file);
+      // const postData = new FormData();
+      // postData.append(key, file.name);
+      // postData.append('file', file);
 
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){

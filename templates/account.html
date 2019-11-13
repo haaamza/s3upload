@@ -114,7 +114,9 @@
       });
       var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
       console.log(url);
-      uploadFile(file,url);
+      $('#preview').src=url;
+      $('#avatar-url').value=url;
+      // uploadFile(file,url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       // xhr.onreadystatechange = () => {

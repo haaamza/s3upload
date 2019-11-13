@@ -83,7 +83,7 @@
     function getSignedRequest(file){
       console.log("hi there");
       var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
-      var params = {Key: ${file.name}, ContentType: file.type, Body: file};
+      var params = {Key: {{file.name}}, ContentType: file.type, Body: file};
       var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
       console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
       }).send(function(err, data) {

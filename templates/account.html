@@ -10,7 +10,7 @@
   </script>
   <style>
     #loading {
-      width: 100%;
+      width: 40%;
       background-color: #ddd;
     }
 
@@ -114,7 +114,8 @@
       }).send(function(err, data) {
         $('#loading').hide();
       });
-      console.log(result);
+      var url = 'https://%s.s3.amazonaws.com/%s'+'%bollyeobucket4'+file.name;
+      console.log(url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       // xhr.onreadystatechange = () => {

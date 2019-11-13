@@ -8,6 +8,21 @@
       });
       AWS.config.region = 'eu-west-2';
   </script>
+  <style>
+    #loading {
+      width: 100%;
+      background-color: #ddd;
+    }
+
+    #myBar {
+      width: 0%;
+      height: 30px;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+    }
+</style>
 </head>
   <body>
 
@@ -26,9 +41,13 @@
     <p id="status">Please select a file</p>
     <img style="border:1px solid gray;width:300px;" id="preview" src="/static/media/default.png">
 
-    <div style="display:none"  id="loading" class="spinner-border" role="status">
+    <!-- <div style="display:none"  id="loading" class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
       <span id="progress"></span>
+    </div> -->
+
+    <div style="display:none" id="loading">
+      <div id="myBar">0%</div>
     </div>
 
     <h2>Your information</h2>
@@ -84,11 +103,13 @@
     */
     function getSignedRequest(file){
       console.log("hi there");
+      var elem = document.getElementById("myBar");
       var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
       var params = {Key: file.name, ContentType: file.type, Body: file};
       var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
         var perage = parseInt((evt.loaded * 100) / evt.total);
-        $('#progress').text(perage);
+        elem.style.width = perage + "%";
+        elem.innerHTML = perage  + "%";
       console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
       }).send(function(err, data) {
         $('#loading').hide();

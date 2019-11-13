@@ -3,8 +3,8 @@
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.569.0.min.js"></script>
   <script type="text/javascript">
       AWS.config.update({
-          accessKeyId : {{accesskey}},
-          secretAccessKey : {{accessId}}
+          accessKeyId : 'AKIAZ7QEZCC2T3IYFRR4',
+          secretAccessKey : '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'
       });
       AWS.config.region = 'eu-west-2';
   </script>
@@ -100,9 +100,8 @@
       request.
     */
     function getSignedRequest(file){
-      console.log("hi there");
       var elem = document.getElementById("myBar");
-      var bucket = new AWS.S3({params: {Bucket: {{bucket}} }});
+      var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
       var params = {Key: file.name, ContentType: file.type, Body: file};
       var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
         var perage = parseInt((evt.loaded * 100) / evt.total);
@@ -110,7 +109,7 @@
         elem.innerHTML = perage  + "%";
       }).send(function(err, data) {
         $('#loading').hide();
-        var url = 'https://'+{{bucket}}+ '.s3.eu-west-2.amazonaws.com/' +file.name;
+        var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
         $('#preview').attr('src',url);
         $('#avatar-url').attr('value',url);
       });
@@ -137,7 +136,6 @@
        start upload procedure by asking for a signed request from the app.
     */
     function initUpload(){
-      console.log("init");
       const files = document.getElementById('file-input').files;
       const file = files[0];
       if(!file){

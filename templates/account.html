@@ -114,20 +114,8 @@
       });
       var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
       console.log(url);
-      var img = new Image();
-      $(img).load(function(){
-
-        $('#avatar-url').append($(this));
-
-      }).attr({
-
-        src: url
-
-      }).error(function(){
-        //do something if image cannot load
-      });
-      // $('#preview').src=url;
-      // $('#avatar-url').value=url;
+      $('#preview').attr('src',url);
+      $('#avatar-url').attr('value',url);
       // uploadFile(file,url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);

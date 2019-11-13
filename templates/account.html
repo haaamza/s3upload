@@ -81,14 +81,14 @@
       request.
     */
     function getSignedRequest(file){
-      var bucket = new AWS.S3({params: {Bucket: {{env['S3_BUCKET'])}}}});
-      var params = {Key: ${file.name}, ContentType: file.type, Body: file};
-      var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
-      console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
-      }).send(function(err, data) {
-      alert("File uploaded successfully.");
-      });
-      console.log(result);
+      // var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
+      // var params = {Key: ${file.name}, ContentType: file.type, Body: file};
+      // var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
+      // console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
+      // }).send(function(err, data) {
+      // alert("File uploaded successfully.");
+      // });
+      // console.log(result);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       // xhr.onreadystatechange = () => {

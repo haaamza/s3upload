@@ -1,4 +1,13 @@
 <html>
+<head>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.569.0.min.js"></script>
+  <script type="text/javascript">
+      AWS.config.update({
+          accessKeyId : 'AKIAZ7QEZCC2T3IYFRR4',
+          secretAccessKey : 'bSz7W8Z9ahVHXNnnSt/Oysjsqo2eODbrxq1+Btfh'
+      });
+  </script>
+</head>
   <body>
 
     <h1>Edit your account</h1>
@@ -72,21 +81,29 @@
       request.
     */
     function getSignedRequest(file){
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
-      xhr.onreadystatechange = () => {
-        if(xhr.readyState === 4){
-          if(xhr.status === 200){
-            const response = JSON.parse(xhr.responseText);
-            uploadFile(file, response.data, response.url);
-          }
-          else{
-            $('#loading').hide();
-            alert('Could not get signed URL.');
-          }
-        }
-      };
-      xhr.send();
+      var bucket = new AWS.S3({params: {Bucket: {{env['S3_BUCKET'])}}}});
+      var params = {Key: ${file.name}, ContentType: file.type, Body: file};
+      var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
+      console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
+      }).send(function(err, data) {
+      alert("File uploaded successfully.");
+      });
+      console.log(result);
+      // const xhr = new XMLHttpRequest();
+      // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+      // xhr.onreadystatechange = () => {
+      //   if(xhr.readyState === 4){
+      //     if(xhr.status === 200){
+      //       const response = JSON.parse(xhr.responseText);
+      //       uploadFile(file, response.data, response.url);
+      //     }
+      //     else{
+      //       $('#loading').hide();
+      //       alert('Could not get signed URL.');
+      //     }
+      //   }
+      // };
+      // xhr.send();
     }
 
     /*

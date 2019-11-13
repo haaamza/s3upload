@@ -69,15 +69,13 @@
     /*
       Function to carry out the actual POST request to S3 using the signed request from the Python app.
     */
-    function uploadFile(file, s3Data, url){
+    function uploadFile(file, url){
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', s3Data.url);
+      xhr.open('POST', url);
       xhr.setRequestHeader('x-amz-acl', 'public-read');
 
       const postData = new FormData();
-      for(key in s3Data.fields){
-        postData.append(key, s3Data.fields[key]);
-      }
+      postData.append(key, file.name);
       postData.append('file', file);
 
       xhr.onreadystatechange = () => {
@@ -106,7 +104,7 @@
       var elem = document.getElementById("myBar");
       var bucket = new AWS.S3({params: {Bucket: 'bollyeobucket4'}});
       var params = {Key: file.name, ContentType: file.type, Body: file};
-      var result = bucket.getSignedUrl(‘putObject’, params).on('httpUploadProgress', function(evt) {
+      var result = bucket.upload(params).on('httpUploadProgress', function(evt) {
         var perage = parseInt((evt.loaded * 100) / evt.total);
         elem.style.width = perage + "%";
         elem.innerHTML = perage  + "%";
@@ -116,7 +114,7 @@
       });
       var url = 'https://'+'bollyeobucket4'+ '.s3.eu-west-2.amazonaws.com/' +file.name;
       console.log(url);
-      // uploadFile(file, response.data, response.url);
+      uploadFile(file,url);
       // const xhr = new XMLHttpRequest();
       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       // xhr.onreadystatechange = () => {
